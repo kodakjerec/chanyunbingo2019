@@ -2,7 +2,7 @@
     <div>
         <div v-for="i in 10" :key="i" class="board">
             <template v-for="j in 10">
-                <div :key="j" @click.prevent="clicked(i,j)" :class="checkClicked(i,j)">
+                <div :key="j" :class="checkClicked(i,j)">
                     <span>{{10*(i-1)+j}}</span>
                 </div>
             </template>
@@ -29,16 +29,49 @@
         <div class="button" @click.prevent="reset">
             <span>重新開始</span>
         </div>
+        <!-- <gift
+          v-if="showGift"
+          @finished="isFinished"
+          :trigger="trigger"
+          :config="config"
+          :history="history">
+        </gift> -->
+        <div class="rollBar">
+          <slot-machine v-if="showGift" :history="history" />
+        </div>
     </div>
 </template>
 
 <script>
+import slotMachine from './components/slotMachine'
+
 export default {
   name: 'bingo2',
+  components: {
+    slotMachine
+  },
   data () {
     return {
+      basicable: [],
       history: [],
-      lastKnownKeyDownIndex: 0
+      playTime: 1,
+      lastKnownKeyDownIndex: 0,
+      // 吃角子老虎用
+      showGift: false,
+      trigger: null,
+      config: {
+        run3D: false,
+        rotateY: -25,
+        duration: 2000,
+        rollback: 0.1,
+        fontSize: 100,
+        height: 100,
+        width: 80,
+        position: 'absolute',
+        left: 912,
+        top: 400,
+        gifts: Array.from(new Array(10), (val, index) => { return { type: 'text', name: index } })
+      }
     }
   },
   created () {
@@ -52,6 +85,7 @@ export default {
     if (localStorage.history) {
       this.history = JSON.parse(localStorage.history)
     }
+    this.showGift = true
   },
   watch: {
     // 歷史紀錄儲存至localStorage
@@ -60,9 +94,12 @@ export default {
     }
   },
   methods: {
-    // 點下按鈕
-    clicked: function (i, j) {
-      let value = 10 * (i - 1) + j
+    // 吃角子老虎開始
+    turn: function () {
+      this.trigger = new Date()
+    },
+    // 吃角子老虎結束
+    isFinished: function (value) {
       if (this.history.includes(value) === false) {
         this.history.push(value)
       }
@@ -114,14 +151,20 @@ export default {
 </script>
 <style lang="scss" scoped>
 .board {
+    display: flex;
     div {
+        position: relative;
         display: inline-block;
-        width: 6em;
+        width: 5.5em;
         height: 4.6em;
+        left: -7px;
+        top: -7px;
         border: 1px white solid;
         span {
+            position: relative;
             color:white;
-            font-size: 60px;
+            font-size: 55px;
+            left: -4px;
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -135,6 +178,7 @@ export default {
     }
 }
 .box-card {
+    position: relative;
     .box-head {
         background-color: #F2AF5C;
         border-radius: 10px 10px 0px 0px;
@@ -149,7 +193,7 @@ export default {
         .box-body-column {
             display: inline-block;
             height: 4.3em;
-            width: 6.18em;
+            width: 6.16em;
         }
         .box-body-columnHead {
             color: white;
@@ -170,7 +214,7 @@ export default {
         }
     }
 }
-.button{
+.button {
     height: 3em;
     background-color: #733030;
     margin-top: 1em;
@@ -182,5 +226,14 @@ export default {
     &:hover{
         background-color: #F2785C
     }
+}
+.rollBar {
+  // position: absolute;
+  // left: 905px;
+  // top: 10px;
+  // width: 5.8em;
+  height: 40em;
+  border-radius: 10px;
+  background-color: #a5a8aa;
 }
 </style>
