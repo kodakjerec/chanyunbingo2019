@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Bingo from '../views/bingo'
+import bingo2 from '../views/bingo2'
 
 Vue.use(VueRouter)
 
@@ -8,7 +8,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: Bingo
+    component: bingo2
   },
   {
     path: '/about',
