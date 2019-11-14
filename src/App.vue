@@ -22,5 +22,11 @@ export default {
 }
 body {
   background-color: black;
+  overflow: hidden;
+}
+html {
+  font-size: 62.5%;
+  min-width: 1024px;
+  min-height: 768px;
 }
 </style>

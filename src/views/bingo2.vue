@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="top">
         <div v-for="i in 10" :key="i" class="board">
             <template v-for="j in 10">
                 <div :key="j" :class="checkClicked(i,j)">
@@ -9,7 +9,7 @@
             </template>
         </div>
         <p></p>
-        <div class="box-card">
+        <div id="tbl_history" class="box-card">
             <div class="box-head">歷史紀錄</div>
             <div class="box-body">
                 <div v-for="i in 10" :key="i" class="box-body-row">
@@ -26,13 +26,16 @@
                 </div>
             </div>
         </div>
-        <div class="button" @click.prevent="reset">
+        <div id="btn_reset" class="button" @click.prevent="reset">
             <span>重新開始</span>
         </div>
         <div class="rollBar">
           <slot-machine v-if="showGift" :history="history" v-on:finished="isFinished" />
         </div>
         <toast :is-active="showToast" />
+        <div class="title">
+          <span>展<br/>雲<br/>108<br/>年<br/>度<br/>尾<br/>牙</span>
+        </div>
     </div>
 </template>
 
@@ -123,15 +126,18 @@ export default {
           break
       }
 
+      let top = 0
       switch (this.lastKnownKeyDownIndex) {
         case 0:
-          window.scrollTo(0, 0)
+          window.scrollTo(0, top)
           break
         case 1:
-          window.scrollTo(0, 775)
+          top = document.getElementById('tbl_history').offsetTop
+          window.scrollTo(0, top)
           break
         default:
-          window.scrollTo(0, 1000)
+          top = document.getElementById('btn_reset').offsetTop
+          window.scrollTo(0, top)
           break
       }
     }
@@ -144,16 +150,15 @@ export default {
     div {
         position: relative;
         display: inline-block;
-        width: 5.5em;
-        height: 4.6em;
-        left: -0.5em;
-        top: -0.4em;
+        width: 8.7vw;
+        height: 9.7vh;
+        left: -8px;
+        top: -8px;
         border: 1px white solid;
         span {
             position: relative;
             color:white;
-            font-size: 5.2em;
-            top: -0.1em;
+            font-size: 9vmin;
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -161,9 +166,8 @@ export default {
             user-select: none;
 
             &.oneHundred {
-              top: 0em;
-              font-size: 4em;
-              left: -0.1em;
+              font-size: 7.5vmin;
+              top: 1vmin;
             }
         }
     }
@@ -173,34 +177,32 @@ export default {
     }
 }
 .box-card {
-    position: relative;
     .box-head {
         background-color: #F2AF5C;
         border-radius: 10px 10px 0px 0px;
         width: inherit;
-        font-size: 2.4em;
+        font-size: 3vmin;
     }
     .box-body{
         .box-body-row {
             border: 1px white solid;
-            height: 4.4em;
+            height: 9.4vh;
         }
         .box-body-column {
             display: inline-block;
             position: relative;
-            left: 0px;
-            height: 4.6em;
-            width: 6.1em;
+            left: 0vw;
+            height: 9.4vh;
+            width: 9.7vw;
             border-right: 1px white solid;
         }
         .box-body-columnHead {
             text-align: left;
             color: white;
-            width: inherit;
-            font-size: 1.1em;
+            font-size: 2vmin;
             span {
               display: inline-block;
-              width: 1.5em;
+              width: 3vw;
               border: 1px white solid;
             }
         }
@@ -208,30 +210,31 @@ export default {
             position: relative;
             width: inherit;
             color:white;
-            font-size: 3.8em;
-            top: -0.2em;
+            font-size: 7vmin;
+            top: -1vh;
             span {
-              padding-left: 0.5em;
+              padding-left: 0.5vw;
 
               &.oneHundred {
-                padding-left: 0em;
+                padding-left: 0vw;
               }
             }
             .blackWord {
-                top: -2px;
+                position: relative;
+                top: -2vh;
                 color:black;
             }
         }
     }
 }
 .button {
-    height: 3em;
+    height: 5vh;
     background-color: #733030;
-    margin-top: 1em;
+    margin-top: 1vh;
     border-radius: 10px;
     color: #F2AF5C;
     span{
-        font-size: 3em;
+        font-size: 5vmin;
     }
     &:hover{
         background-color: #F2785C
@@ -239,12 +242,32 @@ export default {
 }
 .rollBar {
   position: absolute;
-  left: 56.5em;
-  top: 1em;
-  width: 5.9em;
-  height: 15em;
+  right: 1vw;
+  top: 1vh;
+  width: 9vw;
   border-radius: 10px;
   background-color:#E8AE51;
   box-shadow: 2px 5px #805833;
+
+  @media screen and (min-width: 1024px) {
+    height: 28vh;
+  }
+  @media screen and (max-width: 1024px) {
+    height: 25vh;
+  }
+}
+
+.title {
+  position: absolute;
+  right: 1vw;
+  top: 32vh;
+  color: #F24B4B;
+  font-size: 5vw;
+  @media screen and (min-width: 1024px) {
+    line-height: 9.5vh;
+  }
+  @media screen and (max-width: 1024px) {
+    line-height: 9vh;
+  }
 }
 </style>
