@@ -11,8 +11,10 @@ export default {
 </script>
 
 <style>
+@import url(https://fonts.googleapis.com/earlyaccess/cwtexkai.css);
+
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'cwTeXKai', serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

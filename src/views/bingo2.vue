@@ -29,49 +29,31 @@
         <div class="button" @click.prevent="reset">
             <span>重新開始</span>
         </div>
-        <!-- <gift
-          v-if="showGift"
-          @finished="isFinished"
-          :trigger="trigger"
-          :config="config"
-          :history="history">
-        </gift> -->
         <div class="rollBar">
-          <slot-machine v-if="showGift" :history="history" />
+          <slot-machine v-if="showGift" :history="history" v-on:finished="isFinished" />
         </div>
+        <toast :is-active="showToast" />
     </div>
 </template>
 
 <script>
 import slotMachine from './components/slotMachine'
+import toast from './components/toast'
 
 export default {
   name: 'bingo2',
   components: {
-    slotMachine
+    slotMachine,
+    toast
   },
   data () {
     return {
       basicable: [],
       history: [],
-      playTime: 1,
-      lastKnownKeyDownIndex: 0,
+      lastKnownKeyDownIndex: 0, // 鍵盤定位用
       // 吃角子老虎用
       showGift: false,
-      trigger: null,
-      config: {
-        run3D: false,
-        rotateY: -25,
-        duration: 2000,
-        rollback: 0.1,
-        fontSize: 100,
-        height: 100,
-        width: 80,
-        position: 'absolute',
-        left: 912,
-        top: 400,
-        gifts: Array.from(new Array(10), (val, index) => { return { type: 'text', name: index } })
-      }
+      showToast: false
     }
   },
   created () {
@@ -100,6 +82,13 @@ export default {
     },
     // 吃角子老虎結束
     isFinished: function (value) {
+      if (value === 'over') {
+        this.showToast = true
+        let self = this
+        setTimeout(function () { self.showToast = false }, 3000)
+        return
+      }
+
       if (this.history.includes(value) === false) {
         this.history.push(value)
       }
@@ -163,8 +152,8 @@ export default {
         span {
             position: relative;
             color:white;
-            font-size: 55px;
-            left: -4px;
+            font-size: 60px;
+            left: -3px;
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -209,6 +198,8 @@ export default {
             border-right: 1px white solid;
 
             .blackWord {
+                position: relative;
+                top: -2px;
                 color:black;
             }
         }
@@ -228,12 +219,12 @@ export default {
     }
 }
 .rollBar {
-  // position: absolute;
-  // left: 905px;
-  // top: 10px;
-  // width: 5.8em;
-  height: 40em;
+  position: absolute;
+  left: 907px;
+  top: 10px;
+  width: 5.8em;
+  height: 15em;
   border-radius: 10px;
-  background-color: #a5a8aa;
+  background-color: rgb(68, 68, 67);
 }
 </style>
