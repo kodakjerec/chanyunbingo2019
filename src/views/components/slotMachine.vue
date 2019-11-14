@@ -9,7 +9,9 @@
         <div class='slot__item slot__item--copy' >{{ slots[0] }}</div>
       </div>
     </div>
-    <div :class="['button', opts !== null?'active':'']" @click.prevent="start" />
+    <div :class="['button', opts !== null?'active':'']" @click.prevent="start" >
+      <span>中</span>
+    </div>
   </div>
 </template>
 
@@ -84,7 +86,7 @@ export default {
         finalPos: choice * (this.itemHeight + this.marginHeight), // 最後的停駐位置
         startOffset: 2000 + Math.random() * 500, // 快停下來的緩衝位移, 會有慢慢停住的視覺效果
         height: slot.length * (this.itemHeight + this.marginHeight),
-        duration: 500, // 轉動秒數 milliseconds
+        duration: 2000, // 轉動秒數 milliseconds
         isFinished: false
       }
       next(this.animate)
@@ -129,26 +131,31 @@ export default {
 .slot {
   float: left;
   margin-top: 2em;
+  margin-left: 0.05em;
 }
 .slot_window {
-  background-color: gray;
-  width: 90px;
-  height: 90px;
+  background-color:#8a7962;
+  border: 1px #805833 inset;
+  width: 5.6em;
+  height: 5.6em;
   overflow: hidden;
 }
 .slot__item {
   margin-top: 10px; // marginHeight
   height: 70px; // itemHeight
-  width: 90px;
+  width: 5.6em;
   background-color: white;
   color: black;
-  font-size: 70px;
 
   span {
     position: relative;
+    font-size: 5.6em;
+    top: -1.07em;
 
     &.oneHundred {
-      left: -10px;
+      left: -0.1em;
+      top: -4px;
+      font-size: 4em;
     }
   }
 }
@@ -162,10 +169,25 @@ export default {
     border-radius: 50%;
     box-shadow: 0px 9px 0px #b31905, 0px 9px 25px rgba(0,0,0,.7);
 
+    span {
+      position: relative;
+      top: 11px;
+      font-size: 3em;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      -o-user-select: none;
+      user-select: none;
+    }
+
     &.active {
       background-color: #f54747;
       box-shadow: 0 5px 0px #800e0e, 0px 9px 35px rgba(143, 122, 5, 1);
       transform: translateY(5px);
+
+      span {
+        color: yellow;
+      }
     }
   }
 </style>

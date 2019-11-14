@@ -19,15 +19,15 @@ export default {
 <style lang="scss" scoped>
 #toast {
   visibility: hidden;
-  width: 50px;
-  background-color: lightgray;
+  background-color: #857867;
   color: black;
-  border-radius: 2px;
+  border-radius: 5px;
   position: fixed;
   z-index: 1;
-  right: 10px;
-  bottom: 30px;
-  font-size: 40px;
+  right: 0.4em;
+  bottom: 1.5em;
+  width: 2em;
+  font-size: 2.5em;
 }
 
 #toast.show {
@@ -38,21 +38,21 @@ export default {
 
 @-webkit-keyframes fadein {
   from {bottom: 0; opacity: 0;}
-  to {bottom: 30px; opacity: 1;}
+  to {bottom: 1.5em; opacity: 1;}
 }
 
 @keyframes fadein {
   from {bottom: 0; opacity: 0;}
-  to {bottom: 30px; opacity: 1;}
+  to {bottom: 1.5em; opacity: 1;}
 }
 
 @-webkit-keyframes fadeout {
-  from {bottom: 30px; opacity: 1;}
+  from {bottom: 1.5em; opacity: 1;}
   to {bottom: 0; opacity: 0;}
 }
 
 @keyframes fadeout {
-  from {bottom: 30px; opacity: 1;}
+  from {bottom: 1.5em; opacity: 1;}
   to {bottom: 0; opacity: 0;}
 }
 </style>

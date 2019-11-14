@@ -3,15 +3,14 @@
         <div v-for="i in 10" :key="i" class="board">
             <template v-for="j in 10">
                 <div :key="j" :class="checkClicked(i,j)">
-                    <span>{{10*(i-1)+j}}</span>
+                    <span v-if="10*(i-1)+j !== 100">{{10*(i-1)+j}}</span>
+                    <span v-else class="oneHundred">{{ 10*(i-1)+j }}</span>
                 </div>
             </template>
         </div>
         <p></p>
         <div class="box-card">
-            <div class="box-head">
-                <span>歷史紀錄</span>
-            </div>
+            <div class="box-head">歷史紀錄</div>
             <div class="box-body">
                 <div v-for="i in 10" :key="i" class="box-body-row">
                     <div v-for="j in 10" :key="j" class="box-body-column">
@@ -19,8 +18,9 @@
                             <span>{{10*(i-1)+j}}</span>
                         </div>
                         <div class="box-body-item">
-                            <span v-if="history[10*(i-1)+j-1] !== undefined">{{history[10*(i-1)+j-1]}}</span>
-                            <span v-else class="blackWord">{{'_'}}</span>
+                            <span v-if="history[10*(i-1)+j-1] !== undefined && history[10*(i-1)+j-1] !== 100">{{history[10*(i-1)+j-1]}}</span>
+                            <span v-else-if="history[10*(i-1)+j-1] !== undefined && history[10*(i-1)+j-1] === 100" class="oneHundred">{{history[10*(i-1)+j-1]}}</span>
+                            <span v-else-if="history[10*(i-1)+j-1] === undefined" class="blackWord">{{'_'}}</span>
                         </div>
                     </div>
                 </div>
@@ -128,7 +128,7 @@ export default {
           window.scrollTo(0, 0)
           break
         case 1:
-          window.scrollTo(0, 770)
+          window.scrollTo(0, 775)
           break
         default:
           window.scrollTo(0, 1000)
@@ -146,19 +146,25 @@ export default {
         display: inline-block;
         width: 5.5em;
         height: 4.6em;
-        left: -7px;
-        top: -7px;
+        left: -0.5em;
+        top: -0.4em;
         border: 1px white solid;
         span {
             position: relative;
             color:white;
-            font-size: 60px;
-            left: -3px;
+            font-size: 5.2em;
+            top: -0.1em;
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             -o-user-select: none;
             user-select: none;
+
+            &.oneHundred {
+              top: 0em;
+              font-size: 4em;
+              left: -0.1em;
+            }
         }
     }
 
@@ -171,34 +177,47 @@ export default {
     .box-head {
         background-color: #F2AF5C;
         border-radius: 10px 10px 0px 0px;
-        span{
-            font-size: 40px;
-        }
+        width: inherit;
+        font-size: 2.4em;
     }
     .box-body{
         .box-body-row {
             border: 1px white solid;
+            height: 4.4em;
         }
         .box-body-column {
             display: inline-block;
-            height: 4.3em;
-            width: 6.16em;
+            position: relative;
+            left: 0px;
+            height: 4.6em;
+            width: 6.1em;
+            border-right: 1px white solid;
         }
         .box-body-columnHead {
+            text-align: left;
             color: white;
             width: inherit;
-            font-size: 20px;
-            border-bottom: 1px white solid;
-            border-right: 1px white solid;
+            font-size: 1.1em;
+            span {
+              display: inline-block;
+              width: 1.5em;
+              border: 1px white solid;
+            }
         }
         .box-body-item {
+            position: relative;
             width: inherit;
             color:white;
-            font-size: 40px;
-            border-right: 1px white solid;
+            font-size: 3.8em;
+            top: -0.2em;
+            span {
+              padding-left: 0.5em;
 
+              &.oneHundred {
+                padding-left: 0em;
+              }
+            }
             .blackWord {
-                position: relative;
                 top: -2px;
                 color:black;
             }
@@ -212,7 +231,7 @@ export default {
     border-radius: 10px;
     color: #F2AF5C;
     span{
-        font-size: 40px;
+        font-size: 3em;
     }
     &:hover{
         background-color: #F2785C
@@ -220,11 +239,12 @@ export default {
 }
 .rollBar {
   position: absolute;
-  left: 907px;
-  top: 10px;
-  width: 5.8em;
+  left: 56.5em;
+  top: 1em;
+  width: 5.9em;
   height: 15em;
   border-radius: 10px;
-  background-color: rgb(68, 68, 67);
+  background-color:#E8AE51;
+  box-shadow: 2px 5px #805833;
 }
 </style>
