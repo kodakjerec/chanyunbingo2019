@@ -111,7 +111,6 @@ export default {
 
       // negative, such that slots move from top to bottom
       this.pos = -1 * Math.floor((offset + this.opts.finalPos) % this.opts.height)
-      console.log(this.pos)
       if (timeDiff > this.opts.duration) {
         console.log('finished', this.opts, this.opts.finalPos)
         this.opts.isFinished = true

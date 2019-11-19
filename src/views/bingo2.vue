@@ -30,7 +30,7 @@
             <span>重新開始</span>
         </div>
         <div class="rollBar">
-          <slot-machine v-if="showGift" :history="history" v-on:finished="isFinished" />
+          <slot-machine v-if="showGift" :history="history" v-on:finished="isFinished" ref="childRef" />
         </div>
         <toast :is-active="showToast" />
         <div class="title">
@@ -79,10 +79,6 @@ export default {
     }
   },
   methods: {
-    // 吃角子老虎開始
-    turn: function () {
-      this.trigger = new Date()
-    },
     // 吃角子老虎結束
     isFinished: function (value) {
       if (value === 'over') {
@@ -111,6 +107,9 @@ export default {
     handleKeyDown: function (event) {
       console.log(event)
       switch (event.keyCode) {
+        case 32: // space
+          this.$refs.childRef.start()
+          break
         case 37: // ArrowLeft
         case 38: // keyUp
 
@@ -259,7 +258,7 @@ export default {
 
 .title {
   position: absolute;
-  right: 1vw;
+  right: 1.5vw;
   top: 32vh;
   color: #F24B4B;
   font-size: 5vw;
