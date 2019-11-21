@@ -29,8 +29,29 @@
         <div id="btn_reset" class="button" @click.prevent="reset">
             <span>重新開始</span>
         </div>
+        <div class="sliderWording">
+          <div class="header">
+            <span>轉盤<br/>妙數</span>
+          </div>
+          <div class="content">
+            <Vue-slide-bar
+              v-model="slider.value"
+              :data="slider.data"
+              :range="slider.range"
+              :lineHeight="slider.lineHeight"
+              :labelStyles="{ color: '#ffffff', backgroundColor: '#ffffff' }"
+              :processStyle="{ backgroundColor: '#d8d8d8' }"
+              @callbackRange="callbackRange">
+            </Vue-slide-bar>
+          </div>
+        </div>
         <div class="rollBar">
-          <slot-machine v-if="showGift" :history="history" v-on:finished="isFinished" ref="childRef" />
+          <slot-machine
+            v-if="showGift"
+            :history="history"
+            :rollingTime="rollingTime"
+            @finished="isFinished"
+            ref="childRef" />
         </div>
         <toast :is-active="showToast" />
         <div class="title">
@@ -41,12 +62,14 @@
 
 <script>
 import slotMachine from './components/slotMachine'
+import VueSlideBar from './components/vue-slider-bar'
 import toast from './components/toast'
 
 export default {
   name: 'bingo2',
   components: {
     slotMachine,
+    VueSlideBar,
     toast
   },
   data () {
@@ -56,7 +79,26 @@ export default {
       lastKnownKeyDownIndex: 0, // 鍵盤定位用
       // 吃角子老虎用
       showGift: false,
-      showToast: false
+      showToast: false,
+      rollingTime: 5000,
+      // slide-bar
+      slider: {
+        value: 5,
+        lineHeight: 5,
+        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        range: [
+          { label: '1' },
+          { label: '2' },
+          { label: '3' },
+          { label: '4' },
+          { label: '5' },
+          { label: '6' },
+          { label: '7' },
+          { label: '8' },
+          { label: '9' },
+          { label: '10' }
+        ]
+      }
     }
   },
   created () {
@@ -70,12 +112,21 @@ export default {
     if (localStorage.history) {
       this.history = JSON.parse(localStorage.history)
     }
+    if (localStorage.rollingTime) {
+      this.rollingTime = localStorage.rollingTime
+    } else {
+      localStorage.rollingTime = this.rollingTime
+    }
     this.showGift = true
   },
   watch: {
     // 歷史紀錄儲存至localStorage
     history (newValue) {
       localStorage.history = JSON.stringify(newValue)
+    },
+    rollingTime (newValue) {
+      localStorage.rollingTime = this.rollingTime
+      this.slider.defaultValue = this.rollingTime / 1000
     }
   },
   methods: {
@@ -102,6 +153,10 @@ export default {
     // 重新開始
     reset: function () {
       this.history = []
+    },
+    // 調整完轉盤時間
+    callbackRange: function (value) {
+      this.rollingTime = parseInt(value.label) * 1000
     },
     // 鍵盤偵測
     handleKeyDown: function (event) {
@@ -267,6 +322,22 @@ export default {
   }
   @media screen and (max-width: 1024px) {
     line-height: 9vh;
+  }
+}
+.sliderWording {
+  margin-top: 1vh;
+  .header {
+    float: left;
+    text-align: left;
+    margin: 1vh;
+    span {
+      color:white;
+      font-size: 2vw;
+    }
+  }
+  .content {
+    float:left;
+    width: 80%
   }
 }
 </style>

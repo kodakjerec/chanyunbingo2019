@@ -30,6 +30,10 @@ export default {
     history: {
       type: Array,
       required: true
+    },
+    rollingTime: {
+      type: Number,
+      default: 1000
     }
   },
   data () {
@@ -89,7 +93,7 @@ export default {
         finalPos: choice * moveOffset, // 最後的停駐位置
         startOffset: 2000 + Math.random() * 500, // 快停下來的緩衝位移, 會有慢慢停住的視覺效果
         height: slot.length * moveOffset,
-        duration: 1000, // 轉動秒數 milliseconds
+        duration: this.rollingTime, // 轉動秒數 milliseconds
         isFinished: false
       }
       next(this.animate)
@@ -171,7 +175,6 @@ export default {
     span {
       position: relative;
       top: 1vh;
-      font-size: 5vw;
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
@@ -191,15 +194,24 @@ export default {
     }
 
     // 按鈕位置調整
-    @media screen and (min-width: 1024px) {
-      left: 2vw;
-      width: 10vmin;
-      height: 10vmin;
-    }
     @media screen and (max-width: 1024px) {
       left: 1vw;
       width: 8vmin;
       height: 8vmin;
+      font-size: 4vw;
     }
+    @media screen and (min-width: 1024px) and (max-width: 1400px) {
+      left: 1.5vw;
+      width: 10vmin;
+      height: 10vmin;
+      font-size: 4.5vw;
+    }
+    @media screen and (min-width: 1400px) {
+      left: 2vw;
+      width: 10vmin;
+      height: 10vmin;
+      font-size: 4vw;
+    }
+
   }
 </style>
