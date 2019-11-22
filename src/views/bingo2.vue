@@ -31,7 +31,7 @@
         </div>
         <div class="sliderWording">
           <div class="header">
-            <span>轉盤<br/>妙數</span>
+            <span>轉盤<br/>秒數</span>
           </div>
           <div class="content">
             <Vue-slide-bar
