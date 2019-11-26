@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import bingo2 from '../views/bingo2'
 
 Vue.use(VueRouter)
 
@@ -8,7 +7,12 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: bingo2
+    component: () => import('../views/bingo2')
+  },
+  {
+    path: '/test',
+    name: 'test',
+    component: () => import('../views/bingo')
   },
   {
     path: '/about',

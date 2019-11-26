@@ -113,7 +113,7 @@ export default {
       this.history = JSON.parse(localStorage.history)
     }
     if (localStorage.rollingTime) {
-      this.rollingTime = localStorage.rollingTime
+      this.rollingTime = parseInt(localStorage.rollingTime)
     } else {
       localStorage.rollingTime = this.rollingTime
     }
