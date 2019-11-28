@@ -24,7 +24,6 @@
     </div>
 </template>
 <script>
-import axios from 'axios'
 import TableView from './components/table/tableView'
 
 export default {
@@ -50,17 +49,11 @@ export default {
     }
   },
   methods: {
-    roll: function () {
-      axios
-        .post('http://localhost:3000/baseData', {
-          input_parameter: 'A1F1A00A'
-        })
-        .then(response => {
-          this.items = response.data
-        })
-        .catch(error => { // 请求失败处理
-          console.log(error)
-        })
+    roll: async function () {
+      const response = await this.$api.baseData.line_cell({
+        input_parameter: 'A1F1A00A'
+      })
+      this.items = response.data
     }
   }
 }

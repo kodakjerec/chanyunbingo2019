@@ -106,8 +106,8 @@ export default {
       sortColumn: null,
       sortField: null,
       sortOrder: null,
-      visibleRows: {},
-      tableRows: {},
+      visibleRows: [],
+      tableRows: [],
       page: 1
     }
   },
@@ -154,7 +154,9 @@ export default {
         const rowFirst = (this.page * this.paginationOptions.itemsPerPage) - this.paginationOptions.itemsPerPage
         const rowLast = (this.page * this.paginationOptions.itemsPerPage)
         this.visibleRows = this.tableRows.slice(rowFirst, rowLast)
-      } else this.visibleRows = this.tableRows.slice(0)
+      } else {
+        this.visibleRows = this.tableRows.slice(0)
+      }
     },
     initSort: function () {
       this.sortOrder = (this.sortOptions.order === 'asc') ? 'asc' : 'desc'
