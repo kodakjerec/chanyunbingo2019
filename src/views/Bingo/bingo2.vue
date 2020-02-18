@@ -127,6 +127,10 @@ export default {
     rollingTime (newValue) {
       localStorage.rollingTime = this.rollingTime
       this.slider.defaultValue = this.rollingTime / 1000
+    },
+    // 保持畫面不動的偏方
+    showGift () {
+      document.body.style.overflow = 'hidden'
     }
   },
   methods: {

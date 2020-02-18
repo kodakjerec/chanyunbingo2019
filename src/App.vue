@@ -22,7 +22,6 @@ export default {
 }
 body {
   background-color: black;
-  overflow: hidden;
 }
 html {
   font-size: 62.5%;

@@ -7,12 +7,25 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: () => import('../views/bingo2')
+    meta: { title: '展雲賓果2019' },
+    component: () => import('../views/Bingo/bingo2')
   },
   {
     path: '/test',
     name: 'test',
-    component: () => import('../views/bingo')
+    component: () => import('../views/Test/test')
+  },
+  {
+    path: '/lottery',
+    name: 'lottery',
+    meta: { title: '展雲抽獎' },
+    component: () => import('../views/Lottery/lottery')
+  },
+  {
+    path: '/lotterySetting',
+    name: 'lotterySetting',
+    meta: { title: '展雲抽獎後台' },
+    component: () => import('../views/Lottery/lotterySetting')
   },
   {
     path: '/about',
@@ -27,5 +40,10 @@ const routes = [
 const router = new VueRouter({
   routes
 })
-
+router.beforeEach((to, from, next) => {
+  if (to.meta.title) {
+    document.title = to.meta.title
+  }
+  next()
+})
 export default router

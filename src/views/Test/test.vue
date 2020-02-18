@@ -48,6 +48,12 @@ export default {
       }
     }
   },
+  mounted () {
+    // let date = new Date()
+    // date.setSeconds(date.getSeconds() + 10000)
+    // window.document.cookie = 'SameSite=None;Secure;expires=' + date.toGMTString()
+    // console.log(window.document.cookie)
+  },
   methods: {
     roll: async function () {
       const response = await this.$api.baseData.line_cell({
