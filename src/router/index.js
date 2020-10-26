@@ -5,27 +5,21 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/bingo2020',
+    name: 'bingo2020',
+    meta: { title: '展雲賓果2020' },
+    component: () => import('../views/Bingo2020/bingo')
+  },
+  {
     path: '/',
-    name: 'home',
-    meta: { title: '展雲賓果2019' },
-    component: () => import('../views/Bingo/bingo2')
+    name: 'bingo2021',
+    meta: { title: '展雲賓果2021' },
+    component: () => import('../views/Bingo2021/bingo')
   },
   {
     path: '/test',
     name: 'test',
     component: () => import('../views/Test/test')
-  },
-  {
-    path: '/lottery',
-    name: 'lottery',
-    meta: { title: '展雲抽獎' },
-    component: () => import('../views/Lottery/lottery')
-  },
-  {
-    path: '/lotterySetting',
-    name: 'lotterySetting',
-    meta: { title: '展雲抽獎後台' },
-    component: () => import('../views/Lottery/lotterySetting')
   },
   {
     path: '/about',
