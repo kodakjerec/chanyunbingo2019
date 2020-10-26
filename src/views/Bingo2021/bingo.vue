@@ -358,7 +358,7 @@ export default {
   width:100vw;
   height:100vh;
   background-color: black;
-  opacity: 70%;
+  opacity: 0.7;
 }
 .fixedBall {
   position: absolute;
