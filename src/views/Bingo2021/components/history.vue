@@ -47,16 +47,22 @@ export default {
     -o-user-select: none;
     user-select: none;
 
+    box-shadow: inset -30px -30px 30px rgba(0,0,0,.5);
+    -webkit-filter: drop-shadow(12px 12px 7px rgba(0, 0, 0, 0.7));
+    filter: drop-shadow(12px 12px 7px rgba(0, 0, 0, 0.7));
+
     .text {
       font-size: 8vw;
+      text-shadow: rgba(0,0,0,0.5) 5px 5px 5px;
     }
   }
 
   .ballIndex {
     position: absolute;
     right:1vw;
-    font-size:4vw;
+    font-size:4.5vw;
     margin-top: 10vh;
+    text-shadow: rgba(220,220,220,0.5) 3px 3px 3px;
   }
 }
 </style>

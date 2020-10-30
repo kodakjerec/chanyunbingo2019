@@ -194,7 +194,7 @@ export default {
 
       // 往前偏移50步算出發點
       // 沒中獎過的才算步數
-      let calculateTimes = 50
+      let calculateTimes = 150
       let previousIndex = this.fixedValue
       while (calculateTimes > 0) {
         previousIndex -= 1
@@ -240,7 +240,7 @@ export default {
       }
       this.paintTimes += 1
 
-      if (this.paintTimes > 50) {
+      if (this.paintTimes > 150) {
         let myThis = this
         window.setTimeout(function () {
           myThis.paintTimes = 0
@@ -253,21 +253,21 @@ export default {
         this.newValue = null
       } else {
         let timeInterval = 100
-        if (this.paintTimes <= 20) {
+        if (this.paintTimes <= 100) {
+          // 耗時 0.01 * 100 = 1
+          timeInterval = this.speedUpAnimate * 0.02
+        } else if (this.paintTimes <= 120) {
           // 耗時 0.05 * 20 = 1
           timeInterval = this.speedUpAnimate * 0.05
-        } else if (this.paintTimes <= 40) {
-          // 耗時 0.1  * 20 = 2
-          timeInterval = this.speedUpAnimate * 0.1
-        } else if (this.paintTimes <= 44) {
-          // 耗時 0.2  * 4 = 0.8
-          timeInterval = this.speedUpAnimate * 0.2
-        } else if (this.paintTimes <= 47) {
-          // 耗時 0.4  * 3 = 1.2
-          timeInterval = this.speedUpAnimate * 0.4
-        } else {
+        } else if (this.paintTimes <= 140) {
+          // 耗時 0.07  * 20 = 1.4
+          timeInterval = this.speedUpAnimate * 0.07
+        } else if (this.paintTimes <= 147) {
           // 耗時 0.7  * 3 = 2.1
-          timeInterval = this.speedUpAnimate * 0.7
+          timeInterval = this.speedUpAnimate * 0.5
+        } else {
+          // 耗時 0.9  * 3 = 2.7
+          timeInterval = this.speedUpAnimate * 0.9
         }
         window.setTimeout(this.animate, timeInterval)
       }
@@ -380,16 +380,21 @@ export default {
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+
+  box-shadow: inset -100px -50px 40px rgba(0,0,0,.5);
+  -webkit-filter: drop-shadow(12px 12px 7px rgba(0, 0, 0, 0.7));
+  filter: drop-shadow(12px 12px 7px rgba(0, 0, 0, 0.7));
+  text-shadow: rgba(0,0,0,0.5) 10px 10px 10px;
 }
 
 .title {
-  margin-left: 25vw;
-  width: 50vw;
-  border-radius: 10px;
+  width: 100vw;
   text-align: center;
-  color: white;
+  color: yellow;
   background-color: rgb(169, 53, 92);
   font-size: 4.5vw;
+  box-shadow: inset -10px 0px 30px rgba(0,0,0,.5);
+  text-shadow: rgba(0,0,0,0.5) 5px 5px 5px;
 }
 
 .addon {
