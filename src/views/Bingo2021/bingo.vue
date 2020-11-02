@@ -39,6 +39,7 @@
 
 <script>
 import historyPage from './components/history'
+import seedrandom from './components/seedrandom'
 
 export default {
   name: 'bigno2021',
@@ -55,6 +56,7 @@ export default {
         checked: false
       },
       // 動畫相關
+      randSeed: seedrandom(), // 亂數種子
       isRolling: false, // 是否正在動畫
       oldValue: null,
       newValue: null, // 正在亮燈的值
@@ -186,7 +188,7 @@ export default {
 
       // 取得應該得到的數值
       while (this.fixedValue === null) {
-        let index = Math.floor(Math.random() * (this.numbers.length - 1)) + 1
+        let index = Math.floor(this.randSeed() * (this.numbers.length - 1)) + 1
         if (this.numbers[index].checked === false) {
           this.fixedValue = index
         }
