@@ -257,16 +257,16 @@ export default {
           // 耗時 0.01 * 100 = 1
           timeInterval = this.speedUpAnimate * 0.02
         } else if (this.paintTimes <= 120) {
-          // 耗時 0.05 * 20 = 1
+          // 耗時 0.05 * 20 =  1
           timeInterval = this.speedUpAnimate * 0.05
-        } else if (this.paintTimes <= 140) {
-          // 耗時 0.07  * 20 = 1.4
+        } else if (this.paintTimes <= 145) {
+          // 耗時 0.07  * 25 = 1.75
           timeInterval = this.speedUpAnimate * 0.07
         } else if (this.paintTimes <= 147) {
-          // 耗時 0.7  * 3 = 2.1
+          // 耗時 0.5  * 3 =   1.5
           timeInterval = this.speedUpAnimate * 0.5
         } else {
-          // 耗時 0.9  * 3 = 2.7
+          // 耗時 0.9  * 3 =   2.7
           timeInterval = this.speedUpAnimate * 0.9
         }
         window.setTimeout(this.animate, timeInterval)
